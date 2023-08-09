@@ -4,9 +4,19 @@ import { voteAnecdote } from "../reducers/anecdoteReducer";
 const AnecdoteList = () => {
   const dispatch = useDispatch();
 
-  const anecdotes = useSelector((state) =>
-    state.sort((a, b) => b.votes - a.votes)
-  );
+  const anecdotes = useSelector((state) => {
+    const sortedAnecdotes = [...state.anecdotes].sort(
+      (a, b) => b.votes - a.votes
+    );
+
+    if (state.filter === "") {
+      return sortedAnecdotes;
+    }
+
+    return sortedAnecdotes.filter((anecdote) =>
+      anecdote.content.toLowerCase().includes(state.filter.toLowerCase())
+    );
+  });
 
   const vote = (id) => {
     console.log("vote", id);
