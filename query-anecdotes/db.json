@@ -34,6 +34,21 @@
       "content": "Anecdote test",
       "votes": 3,
       "id": "U059AeR"
+    },
+    {
+      "content": "testing",
+      "votes": 5,
+      "id": "aIOAJAR"
+    },
+    {
+      "content": "testing",
+      "votes": 0,
+      "id": "8GHibZB"
+    },
+    {
+      "content": "testing",
+      "votes": 0,
+      "id": "Z9XO8ZF"
     }
   ]
 }

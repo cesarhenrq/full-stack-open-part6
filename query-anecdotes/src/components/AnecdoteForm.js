@@ -2,8 +2,12 @@ import { useMutation, useQueryClient } from "react-query";
 
 import { createAnecdote } from "../requests";
 
+import { useSetNotification } from "../contexts/NotificationContext";
+
 const AnecdoteForm = () => {
   const queryClient = useQueryClient();
+
+  const setAndClearNotification = useSetNotification();
 
   const { mutate } = useMutation(createAnecdote, {
     onSuccess: () => {
@@ -16,6 +20,7 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value;
     event.target.anecdote.value = "";
     mutate(content);
+    setAndClearNotification(`created anecdote "${content}"`);
   };
 
   return (

@@ -5,6 +5,8 @@ import { useQuery } from "react-query";
 import { useMutation, useQueryClient } from "react-query";
 import { getAnecdotes, updateAnecdote } from "./requests";
 
+import { useSetNotification } from "./contexts/NotificationContext";
+
 const App = () => {
   const queryClient = useQueryClient();
 
@@ -14,8 +16,11 @@ const App = () => {
     },
   });
 
+  const setAndClearNotification = useSetNotification();
+
   const handleVote = (anecdote) => {
     mutate({ ...anecdote, votes: anecdote.votes + 1 });
+    setAndClearNotification(`you voted "${anecdote.content}"`);
   };
 
   const result = useQuery("anecdotes", getAnecdotes, {
