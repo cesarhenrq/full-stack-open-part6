@@ -10,8 +10,12 @@ const AnecdoteForm = () => {
   const setAndClearNotification = useSetNotification();
 
   const { mutate } = useMutation(createAnecdote, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries("anecdotes");
+      setAndClearNotification(`you created "${data.content}"`);
+    },
+    onError: (error) => {
+      setAndClearNotification(error.response.data.error);
     },
   });
 
@@ -20,7 +24,6 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value;
     event.target.anecdote.value = "";
     mutate(content);
-    setAndClearNotification(`created anecdote "${content}"`);
   };
 
   return (
